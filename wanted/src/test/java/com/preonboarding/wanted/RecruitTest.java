@@ -124,6 +124,7 @@ public class RecruitTest {
     
     @Test
     public void 채용상세조회() throws Exception {
+    	
         // given
         Company company = new Company("원티드랩");
         companyRepository.save(company);
@@ -148,6 +149,51 @@ public class RecruitTest {
         assertThat(detailRecruit.getBonus()).isEqualTo(recruit.getBonus());
         assertThat(detailRecruit.getContent()).isEqualTo(recruit.getContent());
         assertThat(detailRecruit.getStack()).isEqualTo(recruit.getStack());
+    }
+    
+    @Test
+    public void 채용수정() throws Exception {
+    	
+        // given
+        Company company = new Company("원티드랩");
+        companyRepository.save(company);
+
+        Recruit recruit = Recruit.builder()
+                .company(company)
+                .position("백엔드")
+                .bonus(100000)
+                .content("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
+                .stack("Python")
+                .build();
+
+        recruitRepository.save(recruit);
+
+        // when
+        RecruitRequestDto updateRequest = RecruitRequestDto.builder()
+                .companyId(company.getId())
+                .position("프론트엔드")
+                .bonus(150000)
+                .content("원티드랩에서 프론트엔드 주니어 개발자를 채용합니다. 자격요건은..")
+                .stack("Java")
+                .build();
+
+        recruit.updateRecruit(
+                updateRequest.getPosition(),
+                updateRequest.getBonus(),
+                updateRequest.getContent(),
+                updateRequest.getStack()
+        );
+
+        recruitRepository.save(recruit);
+
+        // then
+        Recruit updatedRecruit = recruitRepository.findById(recruit.getId()).orElse(null);
+
+        assertThat(updatedRecruit).isNotNull();
+        assertThat(updatedRecruit.getPosition()).isEqualTo(updateRequest.getPosition());
+        assertThat(updatedRecruit.getBonus()).isEqualTo(updateRequest.getBonus());
+        assertThat(updatedRecruit.getContent()).isEqualTo(updateRequest.getContent());
+        assertThat(updatedRecruit.getStack()).isEqualTo(updateRequest.getStack());
     }
     
     

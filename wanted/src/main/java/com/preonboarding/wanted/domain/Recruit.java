@@ -63,4 +63,11 @@ public class Recruit {
 		this.content = content;
 		this.stack = stack;
 	}
+	
+	public void updateRecruit(String position, int bonus, String content, String stack) {
+		this.position = position;
+		this.bonus = bonus;
+		this.content = content;
+		this.stack = stack;
+	}
 }

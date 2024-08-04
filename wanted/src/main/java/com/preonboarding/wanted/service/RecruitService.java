@@ -42,7 +42,18 @@ public class RecruitService {
 	
 	
 	// 공고 수정
-	
+	@Transactional
+    public void updateRecruit(Long recruitId, RecruitRequestDto request) {
+        Recruit recruit =  recruitRepository.findById(recruitId)
+        		.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
+        
+        recruit.updateRecruit(
+        		request.getPosition(), 
+        		request.getBonus(), request.getContent(), 
+        		request.getStack());
+        
+        this.recruitRepository.save(recruit);
+    }
 	
 	// 공고 삭제
 	@Transactional
