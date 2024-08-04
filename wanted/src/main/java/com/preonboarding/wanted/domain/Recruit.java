@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,16 +30,16 @@ public class Recruit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
-	private String position;
+	@NotNull
+	private String position; 
 	
 	@Column(nullable = false)
 	private int bonus;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String content;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String stack;
 	
 	/*
