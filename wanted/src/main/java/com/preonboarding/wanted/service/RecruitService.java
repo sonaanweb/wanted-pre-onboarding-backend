@@ -37,4 +37,16 @@ public class RecruitService {
 	    recruitRepository.save(recruit);
 		
 	}
+	
+	
+	// 공고 수정
+	
+	
+	// 공고 삭제
+	public void deleteRecruit(Long recruitId) {
+	    Recruit recruit = recruitRepository.findById(recruitId)
+	    		.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
+	    recruitRepository.delete(recruit);
+	}
+	
 }

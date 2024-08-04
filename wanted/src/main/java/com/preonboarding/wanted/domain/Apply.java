@@ -20,7 +20,7 @@ public class Apply {
 	@Id
 	@Column(name = "apply_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	// 중복 지원 불가
 	@ManyToOne

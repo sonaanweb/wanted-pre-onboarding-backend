@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RecruitRequestDto {
 	
-	private long companyId;
+	private Long companyId;
 	private String position;
-	private long bonus;
+	private int bonus;
 	private String content;
 	private String stack;
 
-	public RecruitRequestDto(long companyId, String position, long bonus, String content, String stack) {
+	public RecruitRequestDto(Long companyId, String position, int bonus, String content, String stack) {
 		this.companyId = companyId;
 		this.position = position;
 		this.bonus = bonus;

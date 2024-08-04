@@ -27,13 +27,13 @@ public class Recruit {
 	@Id
 	@Column(name = "recruit_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String position;
 	
 	@Column(nullable = false)
-	private long bonus;
+	private int bonus;
 	
 	@Column(nullable = false)
 	private String content;
@@ -55,7 +55,7 @@ public class Recruit {
 	private List<Apply> applyList;
 	
 	@Builder
-	public Recruit(Company company, String position, long bonus, String content, String stack) {		
+	public Recruit(Company company, String position, int bonus, String content, String stack) {		
 		this.company = company;
 		this.position = position;
 		this.bonus = bonus;

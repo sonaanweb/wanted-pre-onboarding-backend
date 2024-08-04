@@ -12,7 +12,7 @@ public class RecruitResponseDto {
 	private Long recruitId;
 	private Long companyId;
 	private String position;
-	private long bonus;
+	private int bonus;
 	private String content;
 	private String stack;
 	
