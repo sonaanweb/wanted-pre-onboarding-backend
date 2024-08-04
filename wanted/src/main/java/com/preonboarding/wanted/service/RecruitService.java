@@ -1,5 +1,7 @@
 package com.preonboarding.wanted.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.preonboarding.wanted.domain.Company;
@@ -48,5 +50,10 @@ public class RecruitService {
 	    		.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
 	    recruitRepository.delete(recruit);
 	}
+	
+	// 공고 조회
+    public List<Recruit> getAllRecruits() {
+        return recruitRepository.findAll();
+    }
 	
 }

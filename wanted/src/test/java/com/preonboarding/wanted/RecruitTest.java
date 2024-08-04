@@ -2,9 +2,12 @@ package com.preonboarding.wanted;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.preonboarding.wanted.domain.Company;
 import com.preonboarding.wanted.domain.Recruit;
@@ -13,7 +16,7 @@ import com.preonboarding.wanted.repository.CompanyRepository;
 import com.preonboarding.wanted.repository.RecruitRepository;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 public class RecruitTest {
 	
 	@Autowired
@@ -83,4 +86,40 @@ public class RecruitTest {
 
         assertThat(deletedRecruit).isNull(); // 삭제 확인 추가
 	}
+	
+    @Test
+    public void 채용리스트() throws Exception {
+    	
+        // given
+        Company company = new Company("원티드랩");
+        companyRepository.save(company);
+
+        Recruit recruit1 = Recruit.builder()
+                .company(company)
+                .position("백엔드")
+                .bonus(100000)
+                .content("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
+                .stack("Python")
+                .build();
+
+        Recruit recruit2 = Recruit.builder()
+                .company(company)
+                .position("프론트엔드")
+                .bonus(200000)
+                .content("원티드랩에서 프론트엔드 주니어 개발자를 채용합니다. 자격요건은..")
+                .stack("Java")
+                .build();
+
+        recruitRepository.save(recruit1);
+        recruitRepository.save(recruit2);
+
+        // when
+        List<Recruit> recruitList = recruitRepository.findAll();
+
+        // then
+        assertThat(recruitList).isNotEmpty();
+        assertThat(recruitList).hasSize(2); // 사이즈
+        assertThat(recruitList).extracting("position").contains("백엔드", "프론트엔드"); // 키워드 확인
+    }
+	
 }
