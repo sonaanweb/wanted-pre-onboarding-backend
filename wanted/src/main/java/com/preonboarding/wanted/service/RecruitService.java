@@ -3,6 +3,7 @@ package com.preonboarding.wanted.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.preonboarding.wanted.domain.Company;
 import com.preonboarding.wanted.domain.Recruit;
@@ -10,7 +11,6 @@ import com.preonboarding.wanted.domain.dto.request.RecruitRequestDto;
 import com.preonboarding.wanted.repository.CompanyRepository;
 import com.preonboarding.wanted.repository.RecruitRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -45,15 +45,23 @@ public class RecruitService {
 	
 	
 	// 공고 삭제
+	@Transactional
 	public void deleteRecruit(Long recruitId) {
 	    Recruit recruit = recruitRepository.findById(recruitId)
 	    		.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
 	    recruitRepository.delete(recruit);
 	}
 	
-	// 공고 조회
+	// 공고 리스트 조회
+	@Transactional(readOnly = true)
     public List<Recruit> getAllRecruits() {
         return recruitRepository.findAll();
     }
+	
+	// 공고 상세페이지
+	public Recruit getRecruitDetail(Long recruitId) {
+		return recruitRepository.findById(recruitId).orElse(null);
+	}
+
 	
 }

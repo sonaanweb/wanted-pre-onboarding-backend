@@ -121,5 +121,34 @@ public class RecruitTest {
         assertThat(recruitList).hasSize(2); // 사이즈
         assertThat(recruitList).extracting("position").contains("백엔드", "프론트엔드"); // 키워드 확인
     }
-	
+    
+    @Test
+    public void 채용상세조회() throws Exception {
+        // given
+        Company company = new Company("원티드랩");
+        companyRepository.save(company);
+
+        Recruit recruit = Recruit.builder()
+                .company(company)
+                .position("백엔드")
+                .bonus(100000)
+                .content("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
+                .stack("Python")
+                .build();
+
+        recruitRepository.save(recruit);
+
+        // when
+        Recruit detailRecruit = recruitRepository.findById(recruit.getId()).orElse(null);
+
+        // then
+        assertThat(detailRecruit).isNotNull();
+        assertThat(detailRecruit.getId()).isEqualTo(recruit.getId());
+        assertThat(detailRecruit.getPosition()).isEqualTo(recruit.getPosition());
+        assertThat(detailRecruit.getBonus()).isEqualTo(recruit.getBonus());
+        assertThat(detailRecruit.getContent()).isEqualTo(recruit.getContent());
+        assertThat(detailRecruit.getStack()).isEqualTo(recruit.getStack());
+    }
+    
+    
 }
