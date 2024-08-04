@@ -1,5 +1,6 @@
 package com.preonboarding.wanted.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -31,9 +32,15 @@ public class Member {
 	private String memberName;
 	
 	@OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-	private List<Apply> applyList;
+	private List<Apply> applyList = new ArrayList<>();
 	
 	public Member(String memberName) {
 		this.memberName = memberName;
 	}
+	
+	// 중복지원 검증
+	public boolean AppliedTo(Recruit recruit) {
+		return applyList.stream().anyMatch(apply -> apply.getRecruit().equals(recruit));
+	}
+	
 }

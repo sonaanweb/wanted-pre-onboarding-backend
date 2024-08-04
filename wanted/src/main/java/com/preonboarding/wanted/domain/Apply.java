@@ -7,11 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -32,8 +31,10 @@ public class Apply {
 	private Member member;
 	// ------------
 	
-	public Apply (Recruit recruit, Member member) {
-		this.member = member;
-		this.recruit = recruit;
-	}
+    @Builder
+    public Apply(Long applyId, Recruit recruit, Member member) {
+        this.id = applyId;
+        this.recruit = recruit;
+        this.member = member;
+    }
 }
