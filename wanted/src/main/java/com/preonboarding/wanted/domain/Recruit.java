@@ -29,9 +29,16 @@ public class Recruit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(nullable = false)
 	private String position;
+	
+	@Column(nullable = false)
 	private long bonus;
+	
+	@Column(nullable = false)
 	private String content;
+	
+	@Column(nullable = false)
 	private String stack;
 	
 	/*
@@ -47,7 +54,6 @@ public class Recruit {
 	@OneToMany(mappedBy = "recruit", cascade = CascadeType.REMOVE)
 	private List<Apply> applyList;
 	
-	// Todo: builder VS allargs
 	@Builder
 	public Recruit(Company company, String position, long bonus, String content, String stack) {		
 		this.company = company;
@@ -56,7 +62,4 @@ public class Recruit {
 		this.content = content;
 		this.stack = stack;
 	}
-	
-	// 수정
-
 }

@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,12 +26,12 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(nullable = false)
 	private String memberName;
 	
 	@OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
 	private List<Apply> applyList;
 	
-	@Builder
 	public Member(String memberName) {
 		this.memberName = memberName;
 	}
