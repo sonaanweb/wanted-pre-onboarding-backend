@@ -67,13 +67,15 @@ DB에서 삭제됩니다
     {
         "recruitId": 1,
         "companyId": 1,
-        "position": "프론트엔드 주니어 개발자",
+        "companyNmae": "원티드랩",
+        "position": "백엔드 주니어 개발자",
         "bonus": 1500000,
         "stack": "Java"
     },
     {
         "recruitId": 2,
         "companyId": 2,
+        "companyNmae": "네이버",
         "position": "프론트엔드 주니어 개발자",
         "bonus": 2000000,
         "stack": "Python"
@@ -87,7 +89,8 @@ DB에서 삭제됩니다
 {
     "recruitId": 1,
     "companyId": 1,
-    "position": "프론트엔드 주니어 개발자",
+    "companyName": "원티드랩",
+    "position": "백엔드 주니어 개발자",
     "bonus": 1500000,
     "content": "원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..",
     "stack": "Java"
@@ -108,19 +111,21 @@ Exception: 이미 지원한 채용공고입니다.
 ```
 
 7. **채용공고 검색기능(선택사항 및 가산점요소)**
-- 사용자는 stack / postion으로 채용공고 검색이 가능합니다.
-```
+- 사용자는 stack / postion / companyName으로 채용공고 검색이 가능합니다.
+```java
 * 영문 대소문자 구분 없이 검색 가능
 @Query("SELECT r FROM Recruit r "
-        + "WHERE LOWER(r.stack) LIKE LOWER(CONCAT('%', :kw, '%')) "
-        + "OR LOWER(r.position) LIKE LOWER(CONCAT('%', :kw, '%'))")
+            + "WHERE LOWER(r.stack) LIKE LOWER(CONCAT('%', :kw, '%')) "
+            + "OR LOWER(r.position) LIKE LOWER(CONCAT('%', :kw, '%'))"
+            + "OR LOWER(r.company.companyName) LIKE LOWER(CONCAT('%', :kw, '%'))")
 
 1. /recruit?kw=java
 
 [
     {
-        "recruitId": 138,
+        "recruitId": 1,
         "companyId": 1,
+        "companyNmae": "자바",
         "position": "백엔드 주니어 개발자",
         "bonus": 1500000,
         "stack": "Java"
@@ -130,23 +135,36 @@ Exception: 이미 지원한 채용공고입니다.
 2. /recruit?kw=개발자
 [
     {
-        "recruitId": 138,
+        "recruitId": 1,
         "companyId": 1,
+        "companyName": "원티드랩",
         "position": "백엔드 주니어 개발자",
         "bonus": 1500000,
         "stack": "Java"
     },
     {
-        "recruitId": 139,
+        "recruitId": 2,
         "companyId": 2,
+        "companyName": "네이버",
         "position": "프론트엔드 주니어 개발자",
         "bonus": 2000000,
         "stack": "Python"
     }
 ]
 
+3. /recruit?kw=원티드
+[
+    {
+        "recruitId": 1,
+        "companyId": 1,
+        "companyName": "원티드랩",
+        "position": "백엔드 주니어 개발자",
+        "bonus": 1500000,
+        "stack": "Java"
+    }
+]
+
 ```
 
-
-## 🫧
+## 🫧느낀점
 ✔️ DTO, 어노테이션 활용, 효율적인 단위테스트(mock 사용등) 등에 아쉬움이 남아 최적화된 코드를 위해 더 공부해볼 것
