@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,8 +39,17 @@ public class RecruitController {
 	
 	// 리스트 조회
     @GetMapping
-    public List<RecruitListResponseDto> getRecruitList() {
-        List<Recruit> recruits = recruitService.getAllRecruits();
+    public List<RecruitListResponseDto> getRecruitList(@RequestParam(value = "kw", defaultValue = "") String kw) {
+        
+    	List<Recruit> recruits;
+        
+        if (!kw.trim().isEmpty()) {
+            recruits = recruitService.searchRecruits(kw);
+        } else {
+            recruits = recruitService.getAllRecruits();
+        }
+        // log.debug("Search results for keyword: " + kw);
+        
         return recruits.stream()
                        .map(RecruitListResponseDto::new)
                        .collect(Collectors.toList());

@@ -69,6 +69,15 @@ public class RecruitService {
         return recruitRepository.findAll();
     }
 	
+	// 검색
+    @Transactional(readOnly = true)
+    public List<Recruit> searchRecruits(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return List.of(); // 빈 리스트 반환
+        }
+        return recruitRepository.findByKeyword(keyword.trim().toLowerCase());
+    }
+	
 	// 공고 상세페이지
 	public Recruit getRecruitDetail(Long recruitId) {
 		return recruitRepository.findById(recruitId).orElse(null);
