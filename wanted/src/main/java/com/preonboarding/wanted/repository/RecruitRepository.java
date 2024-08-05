@@ -14,6 +14,7 @@ public interface RecruitRepository extends JpaRepository<Recruit, Long> {
 	
     @Query("SELECT r FROM Recruit r "
             + "WHERE LOWER(r.stack) LIKE LOWER(CONCAT('%', :kw, '%')) "
-            + "OR LOWER(r.position) LIKE LOWER(CONCAT('%', :kw, '%'))")
-	List<Recruit> findByKeyword(@Param("kw") String keyword);
+            + "OR LOWER(r.position) LIKE LOWER(CONCAT('%', :kw, '%'))"
+            + "OR LOWER(r.company.companyName) LIKE LOWER(CONCAT('%', :kw, '%'))")
+    List<Recruit> findByKeyword(@Param("kw") String keyword);
 }

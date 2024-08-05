@@ -13,6 +13,7 @@ public class RecruitListResponseDto {
 	
 	private Long recruitId;
     private Long companyId;
+    private String companyName;
     private String position;
     private int bonus;
     private String stack;
@@ -20,6 +21,7 @@ public class RecruitListResponseDto {
     public RecruitListResponseDto(Recruit recruit) {
         this.recruitId = recruit.getId();
         this.companyId = recruit.getCompany().getId();
+        this.companyName = recruit.getCompany().getCompanyName();
         this.position = recruit.getPosition();
         this.bonus = recruit.getBonus();
         this.stack = recruit.getStack();
