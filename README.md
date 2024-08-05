@@ -13,6 +13,7 @@
 |4|GET|채용공고 목록 조회|/recruit|
 |5|GET|채용공고 상세 조회|/recruit/{recruitId}|
 |6|POST|채용공고 지원|/apply|
+|7|GET|채용공고 검색|/recruit?kw={keyword}|
 
 ## ✅사용기술&툴
 <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat-square&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/STS4-6DB33F?style=flat-square&logo=spring&logoColor=white">  <img src="https://img.shields.io/badge/H2-41454A?style=flat-square&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Java 17-FF160B?style=flat-square&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=gradle&logoColor=white">
@@ -106,7 +107,45 @@ DB에서 삭제됩니다
 Exception: 이미 지원한 채용공고입니다.
 ```
 
-7. **채용공고 검색기능(선택사항 및 가산점요소)** - ing
+7. **채용공고 검색기능(선택사항 및 가산점요소)**
+- 사용자는 stack / postion으로 채용공고 검색이 가능합니다.
+```
+* 영문 대소문자 구분 없이 검색 가능
+@Query("SELECT r FROM Recruit r "
+        + "WHERE LOWER(r.stack) LIKE LOWER(CONCAT('%', :kw, '%')) "
+        + "OR LOWER(r.position) LIKE LOWER(CONCAT('%', :kw, '%'))")
+
+1. /recruit?kw=java
+
+[
+    {
+        "recruitId": 138,
+        "companyId": 1,
+        "position": "백엔드 주니어 개발자",
+        "bonus": 1500000,
+        "stack": "Java"
+    }
+]
+
+2. /recruit?kw=개발자
+[
+    {
+        "recruitId": 138,
+        "companyId": 1,
+        "position": "백엔드 주니어 개발자",
+        "bonus": 1500000,
+        "stack": "Java"
+    },
+    {
+        "recruitId": 139,
+        "companyId": 2,
+        "position": "프론트엔드 주니어 개발자",
+        "bonus": 2000000,
+        "stack": "Python"
+    }
+]
+
+```
 
 
 ## 🫧
