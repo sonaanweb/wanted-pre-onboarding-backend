@@ -2,6 +2,8 @@ package com.preonboarding.wanted.domain;
 
 import java.util.List;
 
+import com.preonboarding.wanted.domain.common.BaseTimeEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Recruit {
+public class Recruit extends BaseTimeEntity {
 	
 	// Recruit: 채용공고
 	
